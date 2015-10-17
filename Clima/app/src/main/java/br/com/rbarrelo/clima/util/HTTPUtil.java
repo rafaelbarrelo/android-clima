@@ -3,6 +3,7 @@ package br.com.rbarrelo.clima.util;
 import java.util.ArrayList;
 import java.util.Random;
 
+import br.com.rbarrelo.clima.R;
 import br.com.rbarrelo.clima.modelos.Cidade;
 import br.com.rbarrelo.clima.modelos.Temperatura;
 
@@ -42,6 +43,8 @@ public class HTTPUtil {
             cidade.setEstado("Estado " + i);
             cidade.setLatitude(new Float(i + 30.3));
             cidade.setLongitude(new Float(i + 33.4));
+            cidade.setBandeira(R.mipmap.ic_launcher);
+            cidades.add(cidade);
         }
         
         return cidades;

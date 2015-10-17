@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="5dp"
+    android:layout_marginBottom="2dp"
+    android:elevation="1dp">
+
+    <ImageView
+        android:id="@+id/img_cidade"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        tools:src="@mipmap/ic_launcher"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/linear_cidade"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/img_cidade"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cidade_nome"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="Nome"
+            android:gravity="top" />
+
+        <TextView
+            android:id="@+id/cidade_estado"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="Estado"
+            android:gravity="bottom" />
+    </LinearLayout>
+</RelativeLayout>

@@ -9,14 +9,16 @@ public class Cidade {
     private String Estado;
     private float Latitude;
     private float Longitude;
+    private int Bandeira;
 
     public Cidade() {}
 
-    public Cidade(String nome, String estado, float latitude, float longitude) {
+    public Cidade(String nome, String estado, float latitude, float longitude, int bandeira) {
         Nome = nome;
         Estado = estado;
         Latitude = latitude;
         Longitude = longitude;
+        Bandeira = bandeira;
     }
 
     public String getNome() {
@@ -43,11 +45,14 @@ public class Cidade {
         Estado = estado;
     }
 
-    public void setLatitude(float latitude) {
-        Latitude = latitude;
-    }
+    public void setLatitude(float latitude) { Latitude = latitude; }
 
     public void setLongitude(float longitude) {
         Longitude = longitude;
     }
+
+    public int getBandeira() { return Bandeira; }
+
+    public void setBandeira(int bandeira) { Bandeira = bandeira; }
+
 }
