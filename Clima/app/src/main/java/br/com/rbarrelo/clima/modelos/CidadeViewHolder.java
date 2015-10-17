@@ -2,12 +2,15 @@ package br.com.rbarrelo.clima.modelos;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.rbarrelo.clima.R;
+import br.com.rbarrelo.clima.util.Commom;
+import br.com.rbarrelo.clima.util.MessageEvent;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by rafaelbarrelo on 10/16/15.
@@ -18,7 +21,7 @@ public class CidadeViewHolder extends RecyclerView.ViewHolder implements View.On
     public TextView Nome;
     public TextView Estado;
     public ImageView Imagem;
-    public int Position;
+    public Cidade cidade;
 
     public CidadeViewHolder(Context context, View itemView) {
         super(itemView);
@@ -32,6 +35,7 @@ public class CidadeViewHolder extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(context, Nome.getText().toString(), Toast.LENGTH_SHORT).show();
+        Log.i(Commom.TAG, "onClick ViewHolder: " + Nome.getText().toString());
+        EventBus.getDefault().post(new MessageEvent(cidade));
     }
 }

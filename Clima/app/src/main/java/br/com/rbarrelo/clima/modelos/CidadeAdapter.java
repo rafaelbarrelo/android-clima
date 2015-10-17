@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import br.com.rbarrelo.clima.R;
+import br.com.rbarrelo.clima.util.HTTPUtil;
 
 /**
  * Created by rafaelbarrelo on 10/16/15.
@@ -15,6 +16,7 @@ public class CidadeAdapter extends RecyclerView.Adapter<CidadeViewHolder> {
 
     private Context context;
     private ArrayList<Cidade> items;
+    private HTTPUtil httpUtil = new HTTPUtil();
 
     public CidadeAdapter(Context context, ArrayList<Cidade> items) {
         this.context = context;
@@ -35,7 +37,7 @@ public class CidadeAdapter extends RecyclerView.Adapter<CidadeViewHolder> {
         viewHolder.Nome.setText(cidade.getNome());
         viewHolder.Estado.setText(cidade.getEstado());
         viewHolder.Imagem.setImageResource(cidade.getBandeira());
-        viewHolder.Position = position;
+        viewHolder.cidade = httpUtil.getCidades().get(position);
     }
 
     @Override

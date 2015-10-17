@@ -11,12 +11,12 @@ public class Temperatura {
     private double Maxima;
     private double Atual;
     private String Icone;
-    private String BgColor;
+    private int BgColor;
     private Cidade Cidade;
 
     public Temperatura() {}
 
-    public Temperatura(double minima, double maxima, double atual, String icone, String bgColor, br.com.rbarrelo.clima.modelos.Cidade cidade) {
+    public Temperatura(double minima, double maxima, double atual, String icone, int bgColor, br.com.rbarrelo.clima.modelos.Cidade cidade) {
         Minima = minima;
         Maxima = maxima;
         Atual = atual;
@@ -78,11 +78,11 @@ public class Temperatura {
         Icone = icone;
     }
 
-    public String getBgColor() {
+    public int getBgColor() {
         return BgColor;
     }
 
-    public void setBgColor(String bgColor) {
+    public void setBgColor(int bgColor) {
         BgColor = bgColor;
     }
 

@@ -16,7 +16,6 @@
         android:background="?attr/colorPrimary">
         <!-- android:background="#b0b0b0" -->
 
-
             <RelativeLayout
                 android:id="@+id/layout"
                 android:layout_width="fill_parent"
