@@ -12,9 +12,9 @@
         android:id="@+id/img_cidade"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        tools:src="@mipmap/ic_launcher"
+        tools:src="@drawable/acre"
         android:layout_margin="10dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="fitCenter" />
 
     <LinearLayout
         android:id="@+id/linear_cidade"
@@ -30,7 +30,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             tools:text="Nome"
-            android:gravity="top" />
+            android:gravity="top"
+            style="@style/Base.TextAppearance.AppCompat.Title" />
 
         <TextView
             android:id="@+id/cidade_estado"
@@ -38,6 +39,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             tools:text="Estado"
-            android:gravity="bottom" />
+            android:gravity="bottom"
+            style="@style/Base.TextAppearance.AppCompat.Subhead" />
     </LinearLayout>
 </RelativeLayout>

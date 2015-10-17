@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private void PopulaListaDeCidades(){
         CidadeAdapter cidadeAdapter = new CidadeAdapter(this, httpUtil.getCidades());
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true); // otimizacao
         recyclerView.setAdapter(cidadeAdapter);
         recyclerView.addItemDecoration(new LineDividerItemDecoration(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

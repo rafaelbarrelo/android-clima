@@ -35,6 +35,7 @@ public class CidadeAdapter extends RecyclerView.Adapter<CidadeViewHolder> {
         viewHolder.Nome.setText(cidade.getNome());
         viewHolder.Estado.setText(cidade.getEstado());
         viewHolder.Imagem.setImageResource(cidade.getBandeira());
+        viewHolder.Position = position;
     }
 
     @Override

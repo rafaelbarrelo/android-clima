@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import br.com.rbarrelo.clima.R;
 
 /**
@@ -17,6 +18,7 @@ public class CidadeViewHolder extends RecyclerView.ViewHolder implements View.On
     public TextView Nome;
     public TextView Estado;
     public ImageView Imagem;
+    public int Position;
 
     public CidadeViewHolder(Context context, View itemView) {
         super(itemView);
