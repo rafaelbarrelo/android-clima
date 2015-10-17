@@ -1,4 +1,4 @@
-package br.com.rbarrelo.clima.animations;
+package br.com.rbarrelo.clima.design;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;

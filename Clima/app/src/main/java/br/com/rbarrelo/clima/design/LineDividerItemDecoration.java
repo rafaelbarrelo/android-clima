@@ -1,4 +1,4 @@
-package br.com.rbarrelo.clima.util;
+package br.com.rbarrelo.clima.design;
 
 import android.content.Context;
 import android.graphics.Canvas;

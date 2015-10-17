@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import br.com.rbarrelo.clima.R;
 import br.com.rbarrelo.clima.util.Commom;
-import br.com.rbarrelo.clima.util.MessageEvent;
+import br.com.rbarrelo.clima.eventbus.MessageEvent;
 import de.greenrobot.event.EventBus;
 
 /**

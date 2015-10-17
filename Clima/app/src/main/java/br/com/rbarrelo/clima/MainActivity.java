@@ -13,11 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import br.com.rbarrelo.clima.animations.ColorAnimation;
+import br.com.rbarrelo.clima.design.ColorAnimation;
 import br.com.rbarrelo.clima.modelos.CidadeAdapter;
 import br.com.rbarrelo.clima.util.HTTPUtil;
-import br.com.rbarrelo.clima.util.LineDividerItemDecoration;
-import br.com.rbarrelo.clima.util.MessageEvent;
+import br.com.rbarrelo.clima.design.LineDividerItemDecoration;
+import br.com.rbarrelo.clima.eventbus.MessageEvent;
 import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.setBackgroudTemperatura(this.appBarLayout, ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
         this.nome_cidade.setText(nome);
-        
+
         Snackbar.make(recyclerView, nome, Snackbar.LENGTH_LONG).show();
     }
 

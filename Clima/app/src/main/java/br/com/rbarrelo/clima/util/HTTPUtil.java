@@ -28,7 +28,7 @@ public class HTTPUtil {
 
         Temperatura temperatura = new Temperatura();
         temperatura.setAtual(23.1);
-        temperatura.setBgColor("azul");
+        temperatura.setBgColor(1);
         temperatura.setCidade(cidades.get(i));
         temperatura.setIcone("android");
         temperatura.setMaxima(33.1);

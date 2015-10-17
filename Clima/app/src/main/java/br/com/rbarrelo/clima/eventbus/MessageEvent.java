@@ -1,4 +1,4 @@
-package br.com.rbarrelo.clima.util;
+package br.com.rbarrelo.clima.eventbus;
 
 import br.com.rbarrelo.clima.modelos.Cidade;
 
