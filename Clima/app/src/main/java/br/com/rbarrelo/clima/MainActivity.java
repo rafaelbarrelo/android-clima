@@ -17,15 +17,18 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import br.com.rbarrelo.clima.design.ColorAnimation;
 import br.com.rbarrelo.clima.design.LineDividerItemDecoration;
 import br.com.rbarrelo.clima.eventbus.MessageEvent;
 import br.com.rbarrelo.clima.helpers.GoogleApiHelper;
 import br.com.rbarrelo.clima.helpers.RetrofitHelper;
+import br.com.rbarrelo.clima.modelos.Cidade;
 import br.com.rbarrelo.clima.modelos.CidadeAdapter;
+import br.com.rbarrelo.clima.modelos.Temperatura;
 import br.com.rbarrelo.clima.openweathermap.pojo.OpenWeatherMap;
 import br.com.rbarrelo.clima.util.Commom;
 import br.com.rbarrelo.clima.util.HTTPUtil;
@@ -35,18 +38,22 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private HTTPUtil httpUtil = new HTTPUtil();
-    private GoogleApiHelper googleApiHelper = new GoogleApiHelper();
-    private GoogleApiClient googleApiClient;
+    private GoogleApiHelper googleApiHelper;
     private RetrofitHelper retrofit = new RetrofitHelper();
 
-    private TextView nome_cidade;
-    private TextView temperatura;
-    private TextView min_max;
+    private TextView tvNomeCidade;
+    private TextView tvTemperatura;
+    private TextView tvMinMax;
+    private TextView tvFC;
+    private FloatingActionButton fab;
     private AppBarLayout appBarLayout;
+
+    private Map<Integer, Temperatura> temperaturas = new HashMap<Integer, Temperatura>();
+    private Temperatura current;
 
     @Override
     protected void onStart() {
@@ -60,130 +67,46 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public void onEventMainThread(MessageEvent event) {
-        String lat = Float.toString(event.getCidade().getLatitude());
-        String lon = Float.toString(event.getCidade().getLongitude());
-
-        Call<OpenWeatherMap> call = retrofit.getOpenWeatherApi().getTemperatura(lat, lon, Commom.API_KEY);
-
-        call.enqueue(new Callback<OpenWeatherMap>() {
-            @Override
-            public void onResponse(Response<OpenWeatherMap> response, Retrofit retrofit) {
-                OpenWeatherMap openWeatherMap = response.body();
-
-                setBackgroudTemperatura(appBarLayout, ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
-                nome_cidade.setText(openWeatherMap.getName());
-                temperatura.setText(Double.toString(openWeatherMap.getMain().getTemp()));
-                String minMax = Double.toString(openWeatherMap.getMain().getTemp_min()) + " | " +
-                                Double.toString(openWeatherMap.getMain().getTemp_max());
-                min_max.setText(minMax);
-
-                Snackbar.make(recyclerView, openWeatherMap.getName(), Snackbar.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
-
-
-    }
-
-    @TargetApi(16)
-    private void setBackgroudTemperatura(View view, int id){
-        //view.setBackground(ContextCompat.getDrawable(MainActivity.this, id));
-        ColorAnimation.animateBetweenColors(view, id, 800);
-   }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.nome_cidade = (TextView)findViewById(R.id.temp_cidade);
-        this.temperatura = (TextView)findViewById(R.id.temp_atual);
-        this.min_max = (TextView)findViewById(R.id.temp_min_max);
+        this.googleApiHelper = new GoogleApiHelper(this);
+        this.ConstroiElementosDaTela();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (current != null) {
+            if (current.getTipo() == Temperatura.TEMPERATURA_TIPO.CELSIUS) {
+                current.setTipo(Temperatura.TEMPERATURA_TIPO.FAHRENHEIT);
+            } else {
+                current.setTipo(Temperatura.TEMPERATURA_TIPO.CELSIUS);
+            }
+            ExibeTemperatura(current);
+        }
+    }
+
+    private void ConstroiElementosDaTela() {
+        this.tvNomeCidade = (TextView) findViewById(R.id.temp_cidade);
+        this.tvMinMax = (TextView) findViewById(R.id.temp_min_max);
+
+        this.tvTemperatura = (TextView) findViewById(R.id.temp_atual);
+        this.tvTemperatura.setOnClickListener(this);
+
+        this.tvFC = (TextView) findViewById(R.id.temp_tipo);
+        this.tvFC.setOnClickListener(this);
+
         this.appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
 
-        this.googleApiClient = googleApiHelper.getInstanceOfApiClient(this);
-        this.ImplementaFAB();
+        this.fab = (FloatingActionButton) findViewById(R.id.fab);
+        this.fab.setOnClickListener(googleApiHelper);
+
         this.PopulaListaDeCidades();
     }
 
-    private void ImplementaFAB(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean showSnack = true;
-
-                if (googleApiHelper.isConectado()) {
-                    Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                    if (location != null) {
-                        showSnack = false;
-
-                        Log.i(Commom.TAG, "Latitude: " + location.getLatitude());
-                        Log.i(Commom.TAG, "Longitude: " + location.getLongitude());
-                    }
-                }
-
-                if (showSnack) {
-                    Snackbar.make(view, "Não foi possível identificar a localização atual", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-        });
-    }
-
-    private void testeGSON() {
-        Gson gson = new GsonBuilder().create();
-        String json = "{\n" +
-                "  \"coord\": {\n" +
-                "    \"lon\": -46.77,\n" +
-                "    \"lat\": -23.63\n" +
-                "  },\n" +
-                "  \"weather\": [\n" +
-                "    {\n" +
-                "      \"id\": 803,\n" +
-                "      \"main\": \"Clouds\",\n" +
-                "      \"description\": \"broken clouds\",\n" +
-                "      \"icon\": \"04d\"\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"base\": \"stations\",\n" +
-                "  \"main\": {\n" +
-                "    \"temp\": 300.84,\n" +
-                "    \"pressure\": 1021,\n" +
-                "    \"humidity\": 73,\n" +
-                "    \"temp_min\": 295.15,\n" +
-                "    \"temp_max\": 302.59\n" +
-                "  },\n" +
-                "  \"visibility\": 10000,\n" +
-                "  \"wind\": {\n" +
-                "    \"speed\": 7.7,\n" +
-                "    \"deg\": 180\n" +
-                "  },\n" +
-                "  \"clouds\": {\n" +
-                "    \"all\": 75\n" +
-                "  },\n" +
-                "  \"dt\": 1445104800,\n" +
-                "  \"sys\": {\n" +
-                "    \"type\": 1,\n" +
-                "    \"id\": 4575,\n" +
-                "    \"message\": 0.0146,\n" +
-                "    \"country\": \"BR\",\n" +
-                "    \"sunrise\": 1445070715,\n" +
-                "    \"sunset\": 1445116381\n" +
-                "  },\n" +
-                "  \"id\": 3467722,\n" +
-                "  \"name\": \"Campo Limpo\",\n" +
-                "  \"cod\": 200\n" +
-                "}";
-        OpenWeatherMap omap = gson.fromJson(json, OpenWeatherMap.class);
-    }
-
-    private void PopulaListaDeCidades(){
+    private void PopulaListaDeCidades() {
         CidadeAdapter cidadeAdapter = new CidadeAdapter(this, httpUtil.getCidades());
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true); // otimizacao pois a lista nao muda de tamanho
@@ -193,4 +116,69 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    //Tratamento do EventBus
+    public void onEventMainThread(final MessageEvent event) {
+        if (temperaturas.containsKey(event.getCidade().hashCode())) {
+            Log.i(Commom.TAG, "onEventMainThread - from cache: " + event.getCidade().hashCode());
+            UpdateViewTemp(temperaturas.get(event.getCidade().hashCode()));
+        } else {
+            String query_string = event.getCidade().getQueryString();
+            Log.i(Commom.TAG, "onEventMainThread: " + query_string);
+            CallAsyncRequest(query_string, event.getCidade());
+        }
+    }
+
+    //Chamada do Retrofit
+    private void CallAsyncRequest(String query_string, final Cidade cidade) {
+        Call<OpenWeatherMap> call = retrofit
+                .getOpenWeatherApi()
+                .getTemperatura(query_string, Commom.API_KEY);
+
+        call.enqueue(new Callback<OpenWeatherMap>() {
+            @Override
+            public void onResponse(Response<OpenWeatherMap> response, Retrofit retrofit) {
+                OpenWeatherMap openWeatherMap = response.body();
+                Temperatura temperatura = new Temperatura(openWeatherMap, cidade);
+                temperaturas.put(cidade.hashCode(), temperatura);
+
+                UpdateViewTemp(temperatura);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(Commom.TAG, "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void UpdateViewTemp(Temperatura temperatura) {
+        current = temperatura;
+        setBackgroudTemperatura(appBarLayout,
+                ContextCompat.getColor(MainActivity.this,
+                        temperatura.getBgColor()));
+
+        tvNomeCidade.setText(temperatura.getCidade().getNome());
+        ExibeTemperatura(temperatura);
+
+        String mensagem = temperatura.getCidade().getNome() + " (" + temperatura.getCondicao() + ")";
+        Snackbar.make(recyclerView, mensagem, Snackbar.LENGTH_LONG).show();
+    }
+
+    private void ExibeTemperatura(Temperatura temperatura) {
+        tvTemperatura.setText(Integer.toString(temperatura.getAtual()) + "º");
+
+        String letra = temperatura.getLetra();
+        tvFC.setText(letra);
+        String minMax = "min. " + Integer.toString(temperatura.getMinima()) + "º" + letra +
+                " | máx. " + Integer.toString(temperatura.getMaxima()) + "º" + letra;
+        tvMinMax.setText(minMax);
+    }
+
+    @TargetApi(16)
+    private void setBackgroudTemperatura(View view, int id) {
+        //view.setBackground(ContextCompat.getDrawable(MainActivity.this, id));
+        ColorAnimation.animateBetweenColors(view, id, 900);
+    }
+
 }
+

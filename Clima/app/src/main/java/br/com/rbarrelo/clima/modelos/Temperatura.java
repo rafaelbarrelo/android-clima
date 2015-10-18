@@ -1,69 +1,118 @@
 package br.com.rbarrelo.clima.modelos;
 
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import br.com.rbarrelo.clima.R;
+import br.com.rbarrelo.clima.openweathermap.pojo.OpenWeatherMap;
+import br.com.rbarrelo.clima.util.Commom;
+
 /**
  * Created by rafaelbarrelo on 10/16/15.
  */
 public class Temperatura {
 
-    public enum TEMPERATURA_TIPO { KELVIN, CELSIUS, FAHRENHEIT}
+    public enum TEMPERATURA_TIPO { CELSIUS, FAHRENHEIT}
 
+    private  TEMPERATURA_TIPO tipo;
     private double Minima;
     private double Maxima;
     private double Atual;
     private String Icone;
     private int BgColor;
+    private String Condicao;
     private Cidade Cidade;
+
+    private Date LastUse;
+    private static Map<String, Integer> mapBgColor = new HashMap<String, Integer>();
 
     public Temperatura() {}
 
-    public Temperatura(double minima, double maxima, double atual, String icone, int bgColor, br.com.rbarrelo.clima.modelos.Cidade cidade) {
-        Minima = minima;
-        Maxima = maxima;
-        Atual = atual;
-        Icone = icone;
-        BgColor = bgColor;
-        Cidade = cidade;
+    public Temperatura(OpenWeatherMap openWeatherMap, Cidade cidade){
+        this.Minima = openWeatherMap.getMain().getTemp_min();
+        this.Maxima = openWeatherMap.getMain().getTemp_max();
+        this.Atual = openWeatherMap.getMain().getTemp();
+        this.Icone = openWeatherMap.getWeather().get(0).getIcon();
+        this.Condicao = openWeatherMap.getWeather().get(0).getMain();
+        this.BgColor = identificaBgColor(Condicao);
+        this.Cidade = cidade;
+        this.LastUse = new Date();
+        this.tipo = TEMPERATURA_TIPO.CELSIUS;
     }
 
-    private double converteTemperatura(TEMPERATURA_TIPO tipo, double valor){
+    public static int identificaBgColor(String condicao){
+
+        if (mapBgColor.size() == 0){
+            mapBgColor.put("clear", R.color.clear);
+            mapBgColor.put("rain", R.color.rain);
+            mapBgColor.put("clouds", R.color.clouds);
+            mapBgColor.put("fog", R.color.fog);
+            mapBgColor.put("mist", R.color.mist);
+            mapBgColor.put("haze", R.color.haze);
+            mapBgColor.put("snow", R.color.snow);
+            mapBgColor.put("exteme", R.color.exteme);
+        }
+
+        if (mapBgColor.containsKey(condicao.toLowerCase())){
+            return mapBgColor.get(condicao.toLowerCase());
+        }
+        else{
+            Log.i(Commom.TAG, "identificaBgColor: " + condicao.toLowerCase());
+            return R.color.colorPrimary;
+        }
+    }
+
+    public  String getCondicao() { return this.Condicao; }
+
+    public TEMPERATURA_TIPO getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TEMPERATURA_TIPO tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getLetra(){
+        return getTipo().name().substring(0, 1).toUpperCase();
+    }
+
+    //http://www.rapidtables.com/convert/temperature/how-kelvin-to-celsius.htm
+    private int converteTemperatura(double valor){
 
         if(tipo == TEMPERATURA_TIPO.CELSIUS){
-            valor = valor * 1;
+            //T(°C) = T(K) - 273.15
+            valor = valor - 273.15;
         }
         else if (tipo == TEMPERATURA_TIPO.FAHRENHEIT){
-            valor = valor * 2;
+            //T(°F) = T(K) × 9/5 - 459.67
+            valor = valor * 1.8 - 459.67;
         }
 
-        return valor;
+        return ((int) Math.round(valor));
     }
 
-    public double getMinima() {
-        return getMinima(TEMPERATURA_TIPO.CELSIUS);
-    }
-    public double getMinima(TEMPERATURA_TIPO tipo) {
-        return converteTemperatura(tipo, Minima) ;
+    public int getMinima() {
+        return converteTemperatura(Minima) ;
     }
 
     public void setMinima(double minima) {
         Minima = minima;
     }
 
-    public double getMaxima() {
-        return getMaxima(TEMPERATURA_TIPO.CELSIUS);
-    }
-    public double getMaxima(TEMPERATURA_TIPO tipo) {
-        return converteTemperatura(tipo, Maxima);
+    public int getMaxima() {
+        return converteTemperatura(Maxima);
     }
 
     public void setMaxima(double maxima) {
         Maxima = maxima;
     }
 
-    public double getAtual() {
-        return getAtual(TEMPERATURA_TIPO.CELSIUS);
-    }
-    public double getAtual(TEMPERATURA_TIPO tipo) {
-        return converteTemperatura(tipo, Atual);
+    public int getAtual() {
+        return converteTemperatura(Atual);
     }
 
     public void setAtual(double atual) {
@@ -93,4 +142,13 @@ public class Temperatura {
     public void setCidade(br.com.rbarrelo.clima.modelos.Cidade cidade) {
         Cidade = cidade;
     }
+
+    public Date getLastUse() {
+        return LastUse;
+    }
+
+    public void setLastUse(Date lastUse) {
+        LastUse = lastUse;
+    }
+
 }

@@ -12,8 +12,7 @@ import retrofit.http.Query;
 public interface OpenWeatherMapApi {
 
     @GET("weather")
-    Call<OpenWeatherMap> getTemperatura(@Query("lat") String latitude,
-                                        @Query("lon") String longitude,
+    Call<OpenWeatherMap> getTemperatura(@Query("q") String query_string,
                                         @Query("appid") String appKey);
 
 }

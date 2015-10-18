@@ -5,13 +5,13 @@ package br.com.rbarrelo.clima.openweathermap.pojo;
  */
 public class Clouds {
 
-    private int all;
+    private double all;
 
-    public int getAll() {
+    public double getAll() {
         return all;
     }
 
-    public void setAll(int all) {
+    public void setAll(double all) {
         this.all = all;
     }
 }

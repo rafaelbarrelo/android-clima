@@ -7,18 +7,21 @@ public class Cidade {
 
     private String Nome;
     private String Estado;
-    private float Latitude;
-    private float Longitude;
     private int Bandeira;
+
+    private String Pais;
 
     public Cidade() {}
 
-    public Cidade(String nome, String estado, float latitude, float longitude, int bandeira) {
+    public Cidade(String nome, String estado, String pais, int bandeira){
         Nome = nome;
         Estado = estado;
-        Latitude = latitude;
-        Longitude = longitude;
+        Pais = pais;
         Bandeira = bandeira;
+    }
+
+    public Cidade(String nome, String estado, int bandeira){
+        this(nome, estado, "br", bandeira);
     }
 
     public String getNome() {
@@ -29,12 +32,12 @@ public class Cidade {
         return Estado;
     }
 
-    public float getLatitude() {
-        return Latitude;
+    public String getPais() {
+        return Pais;
     }
 
-    public float getLongitude() {
-        return Longitude;
+    public void setPais(String pais) {
+        Pais = pais;
     }
 
     public void setNome(String nome) {
@@ -45,14 +48,16 @@ public class Cidade {
         Estado = estado;
     }
 
-    public void setLatitude(float latitude) { Latitude = latitude; }
-
-    public void setLongitude(float longitude) {
-        Longitude = longitude;
-    }
-
     public int getBandeira() { return Bandeira; }
 
     public void setBandeira(int bandeira) { Bandeira = bandeira; }
 
+    public String getQueryString(){
+        return getNome() + "," + getPais().toLowerCase();
+    }
+
+    @Override
+    public int hashCode() {
+        return getBandeira();
+    }
 }

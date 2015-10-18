@@ -6,7 +6,7 @@ package br.com.rbarrelo.clima.openweathermap.pojo;
 public class Wind {
 
     private double speed;
-    private int deg;
+    private double deg;
 
     public double getSpeed() {
         return speed;
@@ -16,11 +16,11 @@ public class Wind {
         this.speed = speed;
     }
 
-    public int getDeg() {
+    public double getDeg() {
         return deg;
     }
 
-    public void setDeg(int deg) {
+    public void setDeg(double deg) {
         this.deg = deg;
     }
 }

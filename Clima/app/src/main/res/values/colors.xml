@@ -3,4 +3,14 @@
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00584e</color>
     <color name="colorAccent">#00b8d4</color>
+
+
+    <color name="clear">#00b8d4</color>
+    <color name="rain">#000066</color>
+    <color name="clouds">#85A3C2</color>
+    <color name="fog">#808692</color>
+    <color name="mist">#999FA7</color>
+    <color name="haze">#4D5666</color>
+    <color name="snow">#E6E7E9</color>
+    <color name="exteme">#5C005C</color>
 </resources>
