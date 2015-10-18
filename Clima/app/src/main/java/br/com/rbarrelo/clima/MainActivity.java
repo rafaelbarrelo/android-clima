@@ -10,9 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.test.suitebuilder.TestMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +31,7 @@ import br.com.rbarrelo.clima.modelos.simplificado.CidadeAdapter;
 import br.com.rbarrelo.clima.modelos.simplificado.Temperatura;
 import br.com.rbarrelo.clima.modelos.openweathermap.pojo.OpenWeatherMap;
 import br.com.rbarrelo.clima.util.Commom;
-import br.com.rbarrelo.clima.util.HTTPUtil;
+import br.com.rbarrelo.clima.util.CapitalUtil;
 import de.greenrobot.event.EventBus;
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,17 +41,16 @@ import retrofit.Retrofit;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private HTTPUtil httpUtil = new HTTPUtil();
-    private GoogleApiHelper googleApiHelper;
-    private RetrofitHelper retrofit = new RetrofitHelper();
-
     private TextView tvNomeCidade;
     private TextView tvTemperatura;
     private TextView tvMinMax;
     private TextView tvFC;
+    private ImageView ivIcone;
     private FloatingActionButton fab;
     private AppBarLayout appBarLayout;
 
+    private GoogleApiHelper googleApiHelper;
+    private RetrofitHelper retrofit = new RetrofitHelper();
     private Map<Integer, Temperatura> temperaturas = new HashMap<Integer, Temperatura>();
     private Temperatura current;
 
@@ -94,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.tvFC = (TextView) findViewById(R.id.temp_tipo);
         this.tvFC.setOnClickListener(this);
 
+        this.ivIcone = (ImageView)findViewById(R.id.img_temp);
+        this.ivIcone.setOnClickListener(this);
+
         this.appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
 
         this.fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -103,7 +109,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void PopulaListaDeCidades() {
-        CidadeAdapter cidadeAdapter = new CidadeAdapter(this, httpUtil.getCidades());
+        CapitalUtil capitalUtil = new CapitalUtil();
+        CidadeAdapter cidadeAdapter = new CidadeAdapter(this, capitalUtil.getCapitais());
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true); // otimizacao pois a lista nao muda de tamanho
         recyclerView.setAdapter(cidadeAdapter);
@@ -153,11 +160,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ContextCompat.getColor(MainActivity.this,
                         temperatura.getBgColor()));
 
+        UpdateIcone(temperatura.getIcone());
+
         tvNomeCidade.setText(temperatura.getCidade().getNome());
         ExibeTemperatura(temperatura);
 
         String mensagem = temperatura.getCidade().getNome() + " (" + temperatura.getCondicao() + ")";
         Snackbar.make(recyclerView, mensagem, Snackbar.LENGTH_LONG).show();
+    }
+
+    private void UpdateIcone(String icone){
+        String icon_url = Commom.ICON_BASE_URL + icone;
+        Log.i(Commom.TAG, "icone: " + icon_url);
+
+        Picasso.with(this)
+                .load(icon_url)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .resize(250, 250)
+                .into(ivIcone);
     }
 
     private void ExibeTemperatura(Temperatura temperatura) {

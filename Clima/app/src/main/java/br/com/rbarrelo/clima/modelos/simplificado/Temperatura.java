@@ -35,7 +35,7 @@ public class Temperatura {
         this.Minima = openWeatherMap.getMain().getTemp_min();
         this.Maxima = openWeatherMap.getMain().getTemp_max();
         this.Atual = openWeatherMap.getMain().getTemp();
-        this.Icone = openWeatherMap.getWeather().get(0).getIcon();
+        this.Icone = openWeatherMap.getWeather().get(0).getIcon() + ".png";
         this.Condicao = openWeatherMap.getWeather().get(0).getMain();
         this.BgColor = identificaBgColor(Condicao);
         this.Cidade = cidade;

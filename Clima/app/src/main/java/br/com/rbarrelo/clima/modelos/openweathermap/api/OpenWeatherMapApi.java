@@ -13,5 +13,4 @@ public interface OpenWeatherMapApi {
     @GET("weather")
     Call<OpenWeatherMap> getTemperatura(@Query("q") String query_string,
                                         @Query("appid") String appKey);
-
 }
