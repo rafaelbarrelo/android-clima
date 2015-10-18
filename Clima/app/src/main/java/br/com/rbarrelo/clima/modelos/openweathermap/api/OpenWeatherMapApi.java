@@ -1,9 +1,8 @@
-package br.com.rbarrelo.clima.openweathermap.api;
+package br.com.rbarrelo.clima.modelos.openweathermap.api;
 
-import br.com.rbarrelo.clima.openweathermap.pojo.OpenWeatherMap;
+import br.com.rbarrelo.clima.modelos.openweathermap.pojo.OpenWeatherMap;
 import retrofit.Call;
 import retrofit.http.GET;
-import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**

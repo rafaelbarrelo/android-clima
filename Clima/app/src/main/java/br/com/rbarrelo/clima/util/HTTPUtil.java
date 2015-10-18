@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import br.com.rbarrelo.clima.R;
-import br.com.rbarrelo.clima.modelos.Cidade;
-import br.com.rbarrelo.clima.modelos.Temperatura;
+import br.com.rbarrelo.clima.modelos.simplificado.Cidade;
+import br.com.rbarrelo.clima.modelos.simplificado.Temperatura;
 
 /**
  * Created by rafaelbarrelo on 10/16/15.

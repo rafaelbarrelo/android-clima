@@ -1,6 +1,6 @@
 package br.com.rbarrelo.clima.helpers;
 
-import br.com.rbarrelo.clima.openweathermap.api.OpenWeatherMapApi;
+import br.com.rbarrelo.clima.modelos.openweathermap.api.OpenWeatherMapApi;
 import br.com.rbarrelo.clima.util.Commom;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;

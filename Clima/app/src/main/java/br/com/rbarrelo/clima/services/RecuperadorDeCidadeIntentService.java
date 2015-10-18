@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import br.com.rbarrelo.clima.eventbus.MessageEvent;
-import br.com.rbarrelo.clima.modelos.Cidade;
+import br.com.rbarrelo.clima.modelos.simplificado.Cidade;
 import br.com.rbarrelo.clima.util.Commom;
 import de.greenrobot.event.EventBus;
 

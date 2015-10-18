@@ -1,6 +1,6 @@
 package br.com.rbarrelo.clima.eventbus;
 
-import br.com.rbarrelo.clima.modelos.Cidade;
+import br.com.rbarrelo.clima.modelos.simplificado.Cidade;
 
 /**
  * Created by rafaelbarrelo on 10/17/15.

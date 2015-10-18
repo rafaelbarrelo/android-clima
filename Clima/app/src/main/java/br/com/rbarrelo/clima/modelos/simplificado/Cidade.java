@@ -1,4 +1,4 @@
-package br.com.rbarrelo.clima.modelos;
+package br.com.rbarrelo.clima.modelos.simplificado;
 
 /**
  * Created by rafaelbarrelo on 10/15/15.

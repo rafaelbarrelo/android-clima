@@ -1,4 +1,4 @@
-package br.com.rbarrelo.clima.openweathermap.pojo;
+package br.com.rbarrelo.clima.modelos.openweathermap.pojo;
 
 /**
  * Created by rafaelbarrelo on 10/17/15.

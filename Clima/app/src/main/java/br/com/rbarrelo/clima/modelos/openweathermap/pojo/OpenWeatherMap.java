@@ -1,4 +1,4 @@
-package br.com.rbarrelo.clima.openweathermap.pojo;
+package br.com.rbarrelo.clima.modelos.openweathermap.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

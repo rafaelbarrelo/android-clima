@@ -1,4 +1,4 @@
-package br.com.rbarrelo.clima.modelos;
+package br.com.rbarrelo.clima.modelos.simplificado;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

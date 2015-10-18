@@ -1,6 +1,5 @@
-package br.com.rbarrelo.clima.modelos;
+package br.com.rbarrelo.clima.modelos.simplificado;
 
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.util.Date;
@@ -8,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.rbarrelo.clima.R;
-import br.com.rbarrelo.clima.openweathermap.pojo.OpenWeatherMap;
+import br.com.rbarrelo.clima.modelos.openweathermap.pojo.OpenWeatherMap;
 import br.com.rbarrelo.clima.util.Commom;
 
 /**
@@ -135,11 +134,11 @@ public class Temperatura {
         BgColor = bgColor;
     }
 
-    public br.com.rbarrelo.clima.modelos.Cidade getCidade() {
+    public br.com.rbarrelo.clima.modelos.simplificado.Cidade getCidade() {
         return Cidade;
     }
 
-    public void setCidade(br.com.rbarrelo.clima.modelos.Cidade cidade) {
+    public void setCidade(br.com.rbarrelo.clima.modelos.simplificado.Cidade cidade) {
         Cidade = cidade;
     }
 
