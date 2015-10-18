@@ -6,7 +6,8 @@
     android:gravity="center_vertical"
     android:padding="5dp"
     android:layout_marginBottom="2dp"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:background="@drawable/item_click_feedback"
     android:elevation="1dp">
 
     <ImageView

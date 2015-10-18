@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Picasso.with(this)
                 .load(icon_url)
-                .placeholder(R.mipmap.ic_launcher)
+//                .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .resize(250, 250)
                 .into(ivIcone);
