@@ -8,8 +8,8 @@ public class Cidade {
     private String Nome;
     private String Estado;
     private int Bandeira;
-
     private String Pais;
+    private int myHash;
 
     public Cidade() {}
 
@@ -19,6 +19,8 @@ public class Cidade {
         Pais = pais;
         Bandeira = bandeira;
     }
+
+    public Cidade(String nome, String estado) { this(nome, estado, 0); }
 
     public Cidade(String nome, String estado, int bandeira){
         this(nome, estado, "br", bandeira);
@@ -58,6 +60,16 @@ public class Cidade {
 
     @Override
     public int hashCode() {
-        return getBandeira();
+        if(myHash == 0){
+            String hash = getNome() + getEstado() + getPais();
+            byte[] bytes = hash.getBytes();
+
+            myHash = getBandeira();
+            for (int i = 0; i < bytes.length; i++) {
+                myHash += bytes[i] * i;
+            }
+        }
+
+        return myHash;
     }
 }

@@ -21,6 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <service
+            android:name="br.com.rbarrelo.clima.services.RecuperadorDeCidadeIntentService"
+            android:exported="false"/>
     </application>
 
 </manifest>

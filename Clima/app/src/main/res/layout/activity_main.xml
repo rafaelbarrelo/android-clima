@@ -27,7 +27,7 @@
                     android:id="@+id/img_temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:src="@mipmap/ic_launcher"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:maxHeight="50dp"
@@ -47,19 +47,19 @@
                         android:id="@+id/temp_atual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="31o"
                         android:gravity="top"
                         android:textSize="60sp"
                         android:textStyle="bold"
                         />
+                        <!--android:text="31o"-->
                     <TextView
                         android:id="@+id/temp_tipo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="C"
                         android:textSize="40sp"
                         android:textStyle="bold"
                         android:layout_marginLeft="5dp" />
+                        <!--android:text="C"-->
                 </LinearLayout>
 
 
@@ -67,19 +67,19 @@
                     android:id="@+id/temp_min_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Min. 21o | Max. 35o"
                     android:textSize="20sp"
                     android:layout_marginRight="20dp"
                     android:layout_below="@+id/linear1"
                     android:layout_alignParentRight="true"
                     />
+                    <!--android:text="Min. 21o | Max. 35o"-->
                 <TextView
                     android:id="@+id/temp_cidade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="São Paulo"
                     android:layout_marginLeft="20dp"
                     android:textSize="25sp"
+                    android:text="@string/app_name"
                     android:layout_below="@+id/temp_min_max"/>
             </RelativeLayout>
 

@@ -1,6 +1,7 @@
 package br.com.rbarrelo.clima.helpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import br.com.rbarrelo.clima.services.RecuperadorDeCidadeIntentService;
 import br.com.rbarrelo.clima.util.Commom;
 
 /**
@@ -22,8 +24,10 @@ public class GoogleApiHelper implements GoogleApiClient.ConnectionCallbacks,
 
     private GoogleApiClient googleApiClient;
     private boolean conectado = false;
+    private Context context;
 
     public GoogleApiHelper(Context context){
+        this.context = context;
         if (googleApiClient == null) {
             iniciaConexaoGoogleApi(context);
         }
@@ -65,12 +69,16 @@ public class GoogleApiHelper implements GoogleApiClient.ConnectionCallbacks,
         CarregaLocalizacaoAtual();
     }
 
-    public void CarregaLocalizacaoAtual(){
+    private void CarregaLocalizacaoAtual(){
         if (this.isConectado()) {
             Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             if (location != null) {
                 Log.i(Commom.TAG, "Latitude: " + location.getLatitude());
                 Log.i(Commom.TAG, "Longitude: " + location.getLongitude());
+
+                Intent it = new Intent(context, RecuperadorDeCidadeIntentService.class);
+                it.putExtra(RecuperadorDeCidadeIntentService.LOCATION, location);
+                context.startService(it);
             }
             else{
                 Log.e(Commom.TAG, "CarregaLocalizacaoAtual - Location NULL");
