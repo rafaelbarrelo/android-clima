@@ -7,11 +7,14 @@ Imagem da temperatura capturada pela posição do GPS (latitude/longitude)
 ![image](prints/celsius.png)
 Temperatura exibida em graus Celsius.
 
-![image](prints/celsius.png)
+![image](prints/fahrenheit.png)
 Temperatura exibida em graus Fahrenheit.
 
 ![image](prints/ripple-feedback.png)
 Efeito de "ripple" para Androids v21+.
+
+![image](prints/layout-land.png)
+Layout em landscape.
 
 ### Bibliotecas utilizadas
 ##### Nativas

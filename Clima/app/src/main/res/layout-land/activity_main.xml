@@ -22,24 +22,12 @@
                 android:layout_marginTop="30dp"
                 >
 
-                <ImageView
-                    android:id="@+id/img_temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:maxHeight="50dp"
-                    android:maxWidth="50dp"
-                    />
-
                 <LinearLayout
                     android:id="@+id/linear1"
-                    android:layout_toRightOf="@+id/img_temp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:layout_marginRight="20dp"
+                    android:gravity="left"
+                    android:layout_marginLeft="20dp"
                     >
 
                     <TextView
@@ -49,6 +37,7 @@
                         android:gravity="top"
                         android:textSize="60sp"
                         android:textStyle="bold"
+                        android:text="31o"
                         />
                         <!--android:text="31o"-->
                     <TextView
@@ -57,29 +46,53 @@
                         android:layout_height="wrap_content"
                         android:textSize="40sp"
                         android:textStyle="bold"
+                        android:text="C"
                         android:layout_marginLeft="5dp" />
                         <!--android:text="C"-->
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/linear2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/linear1"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    >
+
+                    <ImageView
+                        android:id="@+id/img_temp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"
+                        android:maxHeight="50dp"
+                        android:maxWidth="50dp"
+                        />
+                    <TextView
+                        android:id="@+id/temp_cidade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/app_name"
+                        />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/temp_min_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:layout_marginRight="20dp"
+                    android:text="Min. 21o | Max. 35o"
+                    android:layout_marginLeft="20dp"
                     android:layout_below="@+id/linear1"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     />
                     <!--android:text="Min. 21o | Max. 35o"-->
-                <TextView
-                    android:id="@+id/temp_cidade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="25sp"
-                    android:text="@string/app_name"
-                    android:layout_below="@+id/temp_min_max"/>
+
             </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>

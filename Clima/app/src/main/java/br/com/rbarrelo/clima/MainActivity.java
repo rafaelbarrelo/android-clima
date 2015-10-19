@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.test.suitebuilder.TestMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,12 +25,12 @@ import br.com.rbarrelo.clima.design.LineDividerItemDecoration;
 import br.com.rbarrelo.clima.eventbus.MessageEvent;
 import br.com.rbarrelo.clima.helpers.GoogleApiHelper;
 import br.com.rbarrelo.clima.helpers.RetrofitHelper;
+import br.com.rbarrelo.clima.modelos.openweathermap.pojo.OpenWeatherMap;
 import br.com.rbarrelo.clima.modelos.simplificado.Cidade;
 import br.com.rbarrelo.clima.modelos.simplificado.CidadeAdapter;
 import br.com.rbarrelo.clima.modelos.simplificado.Temperatura;
-import br.com.rbarrelo.clima.modelos.openweathermap.pojo.OpenWeatherMap;
-import br.com.rbarrelo.clima.util.Commom;
 import br.com.rbarrelo.clima.util.CapitalUtil;
+import br.com.rbarrelo.clima.util.Commom;
 import de.greenrobot.event.EventBus;
 import retrofit.Call;
 import retrofit.Callback;
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RetrofitHelper retrofit = new RetrofitHelper();
     private Map<Integer, Temperatura> temperaturas = new HashMap<Integer, Temperatura>();
     private Temperatura current;
+
 
     @Override
     protected void onStart() {
@@ -165,8 +165,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvNomeCidade.setText(temperatura.getCidade().getNome());
         ExibeTemperatura(temperatura);
 
-        String mensagem = temperatura.getCidade().getNome() + " (" + temperatura.getCondicao() + ")";
-        Snackbar.make(recyclerView, mensagem, Snackbar.LENGTH_LONG).show();
+        Log.i(Commom.TAG, temperatura.getCidade().getNome() + " (" + temperatura.getCondicao() + ")");
+        Snackbar.make(recyclerView, temperatura.getCidade().getNome(), Snackbar.LENGTH_LONG).show();
     }
 
     private void UpdateIcone(String icone){
